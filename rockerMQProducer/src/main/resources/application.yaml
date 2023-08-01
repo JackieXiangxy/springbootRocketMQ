@@ -1,0 +1,42 @@
+server:
+  port: 29550
+#rocketmq:
+#  name-server: 192.168.1.57:9876
+#  producer:
+#    group: rocketMQ-test
+#    sendMessageTimeout: 10000
+#    retryTimesWhenSendFailed: 2
+#    retryTimesWhenSendAsyncFailed: 2
+#    maxMessageSize: 4194304
+#    compressMessageBodyThreshold: 4194304
+#    retryNextServer: false
+#
+
+
+spring:
+  application:
+    name: rocketMQProducer
+
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.1.22:9876
+          group: producer-group
+        bindings:
+          testConsumer-out-0:
+            producer:
+              group: producer-group-1
+
+      bindings:
+        testConsumer-out-0:
+          destination: num-1
+        testConsumer-in-0:
+          destination: num-1
+          group: consumer_group
+
+
+
+
+
+

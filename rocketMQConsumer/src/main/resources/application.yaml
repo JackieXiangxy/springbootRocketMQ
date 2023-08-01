@@ -1,0 +1,51 @@
+server:
+  port: 29551
+
+#rocketmq:
+#  name-server: 192.168.1.57:9876
+#  consumer:
+#    group: rocketMQ-test
+#    pull-batch-size: 20
+
+spring:
+  application:
+    name: rocketMQConsumer
+
+  cloud:
+    stream:
+      function:
+        definition: testConsumer;myGroup;
+      rocketmq:
+        binder:
+          name-server: 192.168.1.22:9876
+          group: producer-group
+        bindings:
+          testConsumer-out-0:
+            producer:
+              group: producer-group-1
+
+      bindings:
+        testConsumer-out-0:
+          destination: num-1
+        testConsumer-in-0:
+          destination: num-1
+          group: consumer_group
+
+        myGroup-in-0:
+          destination: num-1
+          group: my-group-1
+
+# 日志级别
+logging:
+  level:
+    com.alibaba.cloud.stream.binder.rocketmq: info
+
+
+
+
+
+
+
+
+
+
